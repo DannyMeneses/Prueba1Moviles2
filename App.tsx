@@ -1,20 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './screens/HomeScreen';
+import Screen1 from './screens/Screen1';
+import Screen2 from './screens/Screen2';
+import Screen3 from './screens/Screen3';
+import Screen4 from './screens/Screen4';
+import { RootStackParamList } from './type';
 
-export default function App() {
+const Stack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator();
+
+const MainTabs: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Screen1" component={Screen1} />
+      <Tab.Screen name="Screen2" component={Screen2} />
+      <Tab.Screen name="Screen3" component={Screen3} />
+      <Tab.Screen name="Screen4" component={Screen4} />
+    </Tab.Navigator>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App: React.FC = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="MainTabs">
+        <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />
+        <Stack.Screen name="Screen1" component={Screen1} />
+        <Stack.Screen name="Screen2" component={Screen2} />
+        <Stack.Screen name="Screen3" component={Screen3} />
+        <Stack.Screen name="Screen4" component={Screen4} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
